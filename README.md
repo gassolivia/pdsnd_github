@@ -1,3 +1,4 @@
+## README
 ### Date created
 6 Aug 2021
 
@@ -8,9 +9,9 @@ Exploring US Bikeshare Data
 This python project uses user input to analyze the bikeshare data of three cities
 
 ### Files used
-chicago.csv
-new_york_city.csv
-washington.csv
+* chicago.csv
+* new_york_city.csv
+* washington.csv
 
 ### Credits
 Udacity nanodegree program
