@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 
 CITY_DATA = { 'chicago': 'chicago.csv',
-             'new york': 'new_york_city.csv', 
+             'new york': 'new_york_city.csv',
              'dc': 'washington.csv' }
 
 def get_filters():
@@ -21,7 +21,7 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    print('Hello! Let\'s explore some US bikeshare data!')
+    print('Hello! Let\'s explore some US bikeshare data together!')
 
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     city = input('Would you like to see data for Chicago, New York, or DC? ').lower()
@@ -72,14 +72,14 @@ def load_data(city, month, day):
         months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
         month = months.index(month) + 1
         # filter by month to create the new dataframe
-        df = df[df['month'] == month] 
+        df = df[df['month'] == month]
     # filter by day of week if applicable
     if day != 'all':
         # Convert day name to day number
         days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
         day = days.index(day)
         # filter by day of week to create the new dataframe
-        df = df[df['day_of_week'] == day] 
+        df = df[df['day_of_week'] == day]
     print('\n Here is a sample of the data:\n', df.head())
     print('-'*40)
     return df
@@ -93,11 +93,11 @@ def time_stats(df):
     # display the most common month
     common_month = df['month'].mode()[0]
     print('Most Frequent Month: ', common_month)
-    
+
     # display the most common day of week
     common_weekday = df['day_of_week'].mode()[0]
     print('Most Frequent Day of Week (0=Monday): ', common_weekday)
-    
+
     # display the most common start hour
     # extract hour from the Start Time column to create an hour column
     df['hour'] = df['Start Time'].dt.hour
@@ -122,14 +122,14 @@ def station_stats(df):
     print('Most Frequent End Station: ', common_estation)
 
     # display most frequent combination of start station and end station trip
-    #combine station column into new column, with space in between 
+    #combine station column into new column, with space in between
     df['Start and End Station'] = df['Start Station'] + '\n\t' + df['End Station']
     common_esstation = df['Start and End Station'].mode()[0]
     print('Most Frequent Start and End Station:\n\t', common_esstation)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
@@ -139,14 +139,14 @@ def trip_duration_stats(df):
     # display total travel time
     total_time = df['Trip Duration'].sum()
     print('Total Travel Time: {} seconds'.format(total_time))
-    
+
     # display mean travel time
     mean_time = df['Trip Duration'].mean()
     print('Mean Travel Time: {} seconds'.format(mean_time))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
@@ -168,7 +168,7 @@ def user_stats(df):
     print('Most Recent Birth Year: ', max_year)
     mode_year = df['Birth Year'].mode()
     print('Most Common Birth Year: ', mode_year)
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -178,9 +178,9 @@ def raw_data(df):
         i = 0
         while raw_data.lower() == 'yes':
             print(df.iloc[i:i+5, :])
-            i += 5  
+            i += 5
             raw_data = input('\nWould you like to see more raw data? Enter yes or no.\n')
-            
+
 def main():
     while True:
         df = load_data(*get_filters())
@@ -200,7 +200,3 @@ if __name__ == "__main__":
 
 
 # In[ ]:
-
-
-
-
