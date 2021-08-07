@@ -82,7 +82,7 @@ def load_data(city, month, day):
         df = df[df['day_of_week'] == day]
     print('\n Here is a sample of the data:\n', df.head())
     print('-'*40)
-    return df
+    return city, df
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -114,18 +114,18 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-    common_sstation = df['Start Station'].mode()[0]
-    print('Most Frequent Start Station: ', common_sstation)
+    common_start = df['Start Station'].mode()[0]
+    print('Most Frequent Start Station: ', common_start)
 
     # display most commonly used end station
-    common_estation = df['End Station'].mode()[0]
-    print('Most Frequent End Station: ', common_estation)
+    common_end = df['End Station'].mode()[0]
+    print('Most Frequent End Station: ', common_end)
 
     # display most frequent combination of start station and end station trip
     #combine station column into new column, with space in between
     df['Start and End Station'] = df['Start Station'] + '\n\t' + df['End Station']
-    common_esstation = df['Start and End Station'].mode()[0]
-    print('Most Frequent Start and End Station:\n\t', common_esstation)
+    common_trip = df['Start and End Station'].mode()[0]
+    print('Most Frequent Start and End Station:\n\t', common_trip)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -158,16 +158,16 @@ def user_stats(df):
     print('User Types:\n', user_types)
 
     # Display counts of gender
-    gender = df['Gender'].value_counts()
-    print('\nGender:\n', gender)
-
-    # Display earliest, most recent, and most common year of birth
-    min_year = df['Birth Year'].min()
-    print('\nEarliest Birth Year: ', min_year)
-    max_year = df['Birth Year'].max()
-    print('Most Recent Birth Year: ', max_year)
-    mode_year = df['Birth Year'].mode()
-    print('Most Common Birth Year: ', mode_year)
+    if city != 'dc':
+        gender = df['Gender'].value_counts()
+        print('\nGender:\n', gender)
+        # Display earliest, most recent, and most common year of birth
+        min_year = df['Birth Year'].min()
+        print('\nEarliest Birth Year: ', min_year)
+        max_year = df['Birth Year'].max()
+        print('Most Recent Birth Year: ', max_year)
+        mode_year = df['Birth Year'].mode()
+        print('Most Common Birth Year: ', mode_year)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -183,12 +183,12 @@ def raw_data(df):
 
 def main():
     while True:
-        df = load_data(*get_filters())
+        city, df = load_data(*get_filters())
 
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
-        user_stats(df)
+        user_stats(city, df)
         raw_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
